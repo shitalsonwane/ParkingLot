@@ -13,6 +13,16 @@ describe('Test cases for ParkingLotSystem',function(){
     it('should return true when vehicle is unpark',function(){
         let car=new Object()
         parkingLotSystem.park(car)
-        assert.isFalse(parkingLotSystem.unpark(car))
+        assert.isTrue(parkingLotSystem.unpark(car))
+    })
+    it('should return true when unpark vehicle is null',function(){
+        try{
+        let car=new Object()
+        parkingLotSystem.park(car)
+        assert.isTrue(parkingLotSystem.unpark(null))
+        }
+        catch(error){
+            assert.equal(error.message,'UNKNOWN VEHICLE')
+        }
     })
 })
