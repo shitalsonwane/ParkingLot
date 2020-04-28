@@ -1,28 +1,67 @@
-let ParkingLotSystem=require('../src/ParkingLotSystem')
+let parkingLotSystem=require('../src/ParkingLotSystem')
 let assert=require('chai').assert
-let parkingLotSystem
+let chai=require('chai')
+let sinon=require('sinon')
+let parkinglotowner=require('../src/ParkingLotOwner')
+let expect=chai.expect
 describe('Test cases for ParkingLotSystem',function(){
     beforeEach(() => {
-        parkingLotSystem = new ParkingLotSystem()
+        parkingSlot=[]
+        parkingLotMaxSize=3
     })
     //TEST CASE FOR PARK THE VEHICLE
     it('should return true when vehicle is park',function(){
         let car=new Object()
-        assert.isTrue(parkingLotSystem.park(car))
+        parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car,function(result){
+            expect(result).to.equal(true)
+        })
     })
+    //TEST CASE FOR UNPARK THE VEHICLE
     it('should return true when vehicle is unpark',function(){
         let car=new Object()
-        parkingLotSystem.park(car)
-        assert.isTrue(parkingLotSystem.unpark(car))
+        parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car,function(result){
+        let unparkresult=parkingLotSystem.unpark(car)
+            expect(unparkresult).to.equal(true)
+        })
     })
-    it('should return true when unpark vehicle is null',function(){
+    //TEST CASE FOR NULL VEHICLE TYPE THROW ERROR
+    it('should return exception when unpark vehicle is null',function(){
         try{
-        let car=new Object()
-        parkingLotSystem.park(car)
-        assert.isTrue(parkingLotSystem.unpark(null))
+            let car=new Object()
+            let parkingSlot=new Array()
+            const parkingLotMaxSize=3
+            parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car,function(result){
+            let unparkresult=parkingLotSystem.unpark(car)
+            expect(unparkresult).to.equal(true)
+            })
         }
         catch(error){
             assert.equal(error.message,'UNKNOWN VEHICLE')
+        }
+    })
+    //TEST CASE FOR LOT IS FULL
+    it('should return exception when lot is full',(done)=>{            
+        try{
+            let car=new Object()
+            let car1=new Object()
+            let car2=new Object()
+            let car3=new Object()
+            let isParkingLotFull=sinon.stub()
+            isParkingLotFull.withArgs(parkingSlot,parkingLotMaxSize).yields(true)
+            parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car,function(result){
+                expect(result).to.equal(true)
+            parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car1,function(result){
+                expect(result).to.equal(true)
+            parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car2,function(result){
+                expect(result).to.equal(true)
+            parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car3,function(result){
+                expect(result).to.equal(true)
+            done()
+            })})})})
+        }
+        catch(error){
+            assert.equal(error.message,'LOT IS FULL')
+            done()
         }
     })
 })
