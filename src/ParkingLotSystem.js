@@ -1,6 +1,9 @@
 let parkingLotOwner=require('../src/ParkingLotOwner')
 let park=function(parkingSlot,parkingLotMaxSize,vehicle,callback){
     parkingLotOwner.isParkingLotFull(parkingSlot,parkingLotMaxSize,function(result){
+        if (vehicle==null || vehicle==undefined){
+            throw new Error('UNKNOWN VEHICLE') 
+        }
         if(result==true){
             parkingSlot.push(vehicle)
             callback(result)
