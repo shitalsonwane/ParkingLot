@@ -73,4 +73,20 @@ describe('Test cases for ParkingLotSystem',function(){
             assert.equal(error.message,'LOT IS FULL')
         }
     })
+    //TEST CASE FOR NOTIFY OWNER THAT SLOT IS AVAILABLE
+    it('should return exception and notify Airport security when lot is full',()=>{            
+        try{
+            let car=new Object()
+            let car1=new Object()
+            let car2=new Object()
+            let car3=new Object()
+            let isParkingLotAvailable=sinon.stub(parkingLotOwner,'isParkingLotAvailable')
+            assert.isTrue(parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car))
+            assert.isTrue(parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car1))
+            assert.isTrue(parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car2))
+        }
+        catch(error){
+            assert.equal(error.message,'LOT IS FULL')
+        }
+    })
 })
