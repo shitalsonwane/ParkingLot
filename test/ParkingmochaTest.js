@@ -2,17 +2,13 @@ let parkingLotSystem=require('../src/ParkingLotSystem')
 let assert=require('chai').assert
 let chai=require('chai')
 let sinon=require('sinon')
-let ParkingLotOwner=require('../src/ParkingLotOwner')
-let ParkingAirportSecurity=require('../src/ParkingAirportSecurity')
+let parkinglotowner=require('../src/ParkingLotOwner')
+let parkingAirportSecurity=require('../src/ParkingAirportSecurity')
 let expect=chai.expect
-let parkingLotOwner
-let parkingAirportSecurity
-describe('Test cases for ParkingLotSystem',function(){
+describe('Test cases for ParkingLotSystem simple',function(){
     beforeEach(() => {
         parkingSlot=[]
         parkingLotMaxSize=3
-        parkingLotOwner=new ParkingLotOwner()
-        parkingAirportSecurity=new ParkingAirportSecurity()
     })
     //TEST CASE FOR PARK THE VEHICLE
     it('should return true when vehicle is park',function(){
@@ -46,7 +42,7 @@ describe('Test cases for ParkingLotSystem',function(){
             let car1=new Object()
             let car2=new Object()
             let car3=new Object()
-            isParkingLotFull=sinon.stub(parkingLotOwner,'isParkingLotFull')
+            //isParkingLotFull=sinon.stub(parkinglotowner,'isParkingLotFull')
             assert.isTrue(parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car))
             assert.isTrue(parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car1))
             assert.isTrue(parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car2))
@@ -63,11 +59,11 @@ describe('Test cases for ParkingLotSystem',function(){
             let car1=new Object()
             let car2=new Object()
             let car3=new Object()
-            isParkingLotFull=sinon.stub(parkingAirportSecurity,'isParkingLotFull')
+            //isParkingLotFull=sinon.stub(parkingAirportSecurity,'isParkingLotFull')
             assert.isTrue(parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car))
             assert.isTrue(parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car1))
             assert.isTrue(parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car2))
-            assert.isTrue(parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car3))
+            parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car3)
         }
         catch(error){
             assert.equal(error.message,'LOT IS FULL')

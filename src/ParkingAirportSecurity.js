@@ -1,8 +1,7 @@
-let isParkingLotFull=function(parkingSlot,parkingLotMaxSize,callback){
-    if( parkingSlot.length+1 == parkingLotMaxSize ){
+class ParkingAirportSecurity {
+    isParkingLotFull() {
         console.log('notification to Airport Security :- parking lot is full.')
-        callback(false)
     }
-    callback(true)
 }
-exports.isParkingLotFull = isParkingLotFull
+module.exports = ParkingAirportSecurity
+ 
