@@ -6,20 +6,11 @@ let park=function(parkingSlot,parkingLotMaxSize,vehicle){
     if (vehicle==null || vehicle==undefined){
         throw new Error('UNKNOWN VEHICLE') 
     }
-    if(parkingSlot.length==parkingLotMaxSize){
-        parkingLotOwner.isParkingLotFull()
-        parkingAirportSecurity.isParkingLotFull()
+    if(ParkingLotFull(parkingSlot,parkingLotMaxSize)){
         throw new Error('LOT IS FULL')
     }
     else{
-        parkingSlot.push(vehicle)
-        if(parkingSlot.length<parkingLotMaxSize){
-            let emptySlot=parkingSlot.length+1
-            parkingLotOwner.isParkingLotAvailable(emptySlot)
-        }
-        else{
-            parkingLotOwner.isParkingLotFull()
-        }
+        ParkingLotAvailable(vehicle,parkingSlot,parkingLotMaxSize)
         return true
     }
 }
@@ -35,6 +26,28 @@ let unpark=function(vehicle){
             return true
         }
     }
+}
+let ParkingLotFull=function(parkingSlot,parkingLotMaxSize){
+    if(parkingSlot.length==parkingLotMaxSize){
+        parkingLotOwner.isParkingLotFull()
+        parkingAirportSecurity.isParkingLotFull()
+        return true
+    }
+    return false
+}
+let ParkingLotAvailable=function(vehicle,parkingSlot,parkingLotMaxSize){
+    parkingSlot.push(vehicle)
+    if(parkingSlot.length<parkingLotMaxSize){
+        FindEmptySlot(parkingSlot)
+    }
+    else{
+        parkingLotOwner.isParkingLotFull()
+    }
+    return true
+}
+let FindEmptySlot=function(parkingSlot){
+    let emptySlot=parkingSlot.length+1
+    parkingLotOwner.isParkingLotAvailable(emptySlot)
 }
 exports.park=park
 exports.unpark=unpark
