@@ -94,4 +94,12 @@ describe('Test cases for ParkingLotSystem simple',function(){
             assert.equal(error.message,'LOT IS FULL')
         }
     })
+    //TEST CASE FOR FIND PARKED VEHICLE TO UNPARK
+    it('should return true when vehicle is unpark with slot no',function(){
+        let car=new Object()
+        let car1=new Object()
+        assert.isTrue(parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car))
+        assert.isTrue(parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car1))
+        assert.isTrue(parkingLotSystem.unpark(car1))
+    })
 })

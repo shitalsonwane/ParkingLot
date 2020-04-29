@@ -17,6 +17,9 @@ let park=function(parkingSlot,parkingLotMaxSize,vehicle){
             let emptySlot=parkingSlot.length+1
             parkingLotOwner.isParkingLotAvailable(emptySlot)
         }
+        else{
+            parkingLotOwner.isParkingLotFull()
+        }
         return true
     }
 }
@@ -26,6 +29,7 @@ let unpark=function(vehicle){
     }
     for(let i=0;i<parkingSlot.length;i++){
         if(parkingSlot[i]==vehicle){
+            console.log('Your vehicle parking Slot No:'+(i+1))
             parkingSlot.pop(vehicle)
             parkingLotOwner.isParkingLotAvailable(i+1)
             return true
