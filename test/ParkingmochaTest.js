@@ -26,7 +26,6 @@ describe('Test cases for ParkingLotSystem simple',function(){
     it('should return exception when unpark vehicle is null',function(){
         try{
             let car=new Object()
-            let parkingSlot=new Array()
             assert.isTrue(parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car))
             let unparkresult=parkingLotSystem.unpark(car)
             expect(unparkresult).to.equal(true)
@@ -42,7 +41,6 @@ describe('Test cases for ParkingLotSystem simple',function(){
             let car1=new Object()
             let car2=new Object()
             let car3=new Object()
-            //isParkingLotFull=sinon.stub(parkinglotowner,'isParkingLotFull')
             assert.isTrue(parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car))
             assert.isTrue(parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car1))
             assert.isTrue(parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car2))
@@ -59,11 +57,38 @@ describe('Test cases for ParkingLotSystem simple',function(){
             let car1=new Object()
             let car2=new Object()
             let car3=new Object()
-            //isParkingLotFull=sinon.stub(parkingAirportSecurity,'isParkingLotFull')
             assert.isTrue(parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car))
             assert.isTrue(parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car1))
             assert.isTrue(parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car2))
             parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car3)
+        }
+        catch(error){
+            assert.equal(error.message,'LOT IS FULL')
+        }
+    })
+    //TEST CASE FOR NOTIFY OWNER THAT SLOT IS AVAILABLE
+    it('should return exception and notify owner when lot is available',()=>{            
+        try{
+            let car=new Object()
+            let car1=new Object()
+            let car2=new Object()
+            assert.isTrue(parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car))
+            assert.isTrue(parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car1))
+            assert.isTrue(parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car2))
+        }
+        catch(error){
+            assert.equal(error.message,'LOT IS FULL')
+        }
+    })
+    //TEST CASE TO TO FIND WHICH SLOT ARE EMPTY
+    it('should return exception and notify owner which slot is available',()=>{            
+        try{
+            let car=new Object()
+            let car1=new Object()
+            let car2=new Object()
+            assert.isTrue(parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car))
+            assert.isTrue(parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car1))
+            assert.isTrue(parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car2))
         }
         catch(error){
             assert.equal(error.message,'LOT IS FULL')

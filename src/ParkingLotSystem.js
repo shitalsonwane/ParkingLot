@@ -14,18 +14,23 @@ let park=function(parkingSlot,parkingLotMaxSize,vehicle){
     else{
         parkingSlot.push(vehicle)
         if(parkingSlot.length<parkingLotMaxSize){
-            parkingLotOwner.isParkingLotAvailable()
+            let emptySlot=parkingSlot.length+1
+            parkingLotOwner.isParkingLotAvailable(emptySlot)
         }
         return true
     }
 }
 let unpark=function(vehicle){
-        if (vehicle==null || vehicle==undefined){
-            throw new Error('UNKNOWN VEHICLE') 
-        }
-        parkingSlot.pop(vehicle)
-        parkingLotOwner.isParkingLotAvailable()
-        return true
+    if (vehicle==null || vehicle==undefined){
+        throw new Error('UNKNOWN VEHICLE') 
     }
+    for(let i=0;i<parkingSlot.length;i++){
+        if(parkingSlot[i]==vehicle){
+            parkingSlot.pop(vehicle)
+            parkingLotOwner.isParkingLotAvailable(i+1)
+            return true
+        }
+    }
+}
 exports.park=park
 exports.unpark=unpark
