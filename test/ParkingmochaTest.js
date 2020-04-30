@@ -96,18 +96,28 @@ describe('Test cases for ParkingLotSystem simple',function(){
     })
     //TEST CASE FOR FIND PARKED VEHICLE TO UNPARK
     it('should return true when vehicle is unpark with slot no',function(){
-        let car=new Object()
-        let car1=new Object()
-        assert.isTrue(parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car))
-        assert.isTrue(parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car1))
-        assert.isTrue(parkingLotSystem.unpark(car1))
+        try{
+            let car=new Object()
+            let car1=new Object()
+            assert.isTrue(parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car))
+            assert.isTrue(parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car1))
+            assert.isTrue(parkingLotSystem.unpark(car1))
+        }
+        catch(error){
+            assert.equal(error.message,'UNKNOWN VEHICLE')
+        }
     })
     //TEST CASE FOR FIND WHEN VEHICLE WAS PARKED
     it('should return true when vehicle is park with time',function(){
-        let car={vehicleNo:1234,TimeofPark:Date()}
-        let car1={vehicleNo:8934,TimeofPark:Date()}
-        assert.isTrue(parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car))
-        assert.isTrue(parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car1))
-        assert.isTrue(parkingLotSystem.unpark(car1))
+        try{
+            let car={vehicleNo:1234,TimeofPark:Date()}
+            let car1={vehicleNo:8934,TimeofPark:Date()}
+            assert.isTrue(parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car))
+            assert.isTrue(parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car1))
+            assert.isTrue(parkingLotSystem.unpark(car1))
+        }
+        catch(error){
+            assert.equal(error.message,'UNKNOWN VEHICLE')
+        }
     })
 })
