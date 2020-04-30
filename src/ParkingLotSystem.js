@@ -20,7 +20,8 @@ let unpark=function(vehicle){
     }
     for(let i=0;i<parkingSlot.length;i++){
         if(parkingSlot[i]==vehicle){
-            console.log('Your vehicle parking Slot No:'+(i+1))
+            console.log('VEHICLE NO '+vehicle.vehicleNo +': parking Slot No is '+(i+1))
+            console.log('TIMEOFPARK: '+vehicle.TimeofPark)
             parkingSlot.pop(vehicle)
             parkingLotOwner.isParkingLotAvailable(i+1)
             return true

@@ -120,5 +120,6 @@ describe('Test cases for ParkingLotSystem',function(){
         let car1={vehicleNo:8934,TimeofPark:Date()}
         assert.isTrue(parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car))
         assert.isTrue(parkingLotSystem.park(parkingSlot,parkingLotMaxSize,car1))
+        assert.isTrue(parkingLotSystem.unpark(car1))
     })
 })
