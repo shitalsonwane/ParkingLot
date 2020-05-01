@@ -130,4 +130,17 @@ describe('Test cases for ParkingLotSystem',function(){
             assert.equal(error.message,'UNKNOWN VEHICLE')
         }
     })
+    //TEST CASE FOR HANDICAP DRIVER GETS NEAREST SPACE
+    it('should return true when handicap driver gets nearest space',function(){
+        try{
+            let car={vehicleNo:1234,TimeofPark:Date()}
+            let car1={vehicleNo:8934,TimeofPark:Date()}
+            assert.isTrue(parkingLotSystem.park(car))
+            assert.isTrue(parkingLotSystem.park(car1))
+            assert.isTrue(parkingLotSystem.unpark(car1))
+        }
+        catch(error){
+            assert.equal(error.message,'UNKNOWN VEHICLE')
+        }
+    })
 })
