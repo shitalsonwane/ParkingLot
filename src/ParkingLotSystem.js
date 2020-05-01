@@ -55,13 +55,15 @@ class ParkingLotSystem{
                 if(this.parkingSlot[lot][slot]==undefined){
                     if(vehicle.Driver=='Normal' || vehicle.Driver==undefined){
                         this.parkingSlot[lot][slot]=vehicle
+                        return true
                     }
                     else{
                         if(vehicle.Driver =='Handicap'){
-                        lot=2
-                            for (slot=0; slot<parkingLotMaxSize && this.parkingSlot[lot].length<parkingLotMaxSize;slot++){
+                            lot=2
+                            for (slot=0; slot<=parkingLotMaxSize && this.parkingSlot[lot].length<=parkingLotMaxSize;slot++){
                                 if(this.parkingSlot[lot][slot]==undefined){
                                     this.parkingSlot[lot][slot]=vehicle
+                                    return true
                                 }
                             }
                         }
@@ -72,7 +74,6 @@ class ParkingLotSystem{
                     else{
                         parkingLotOwner.isParkingLotFull()
                     }
-                    return true
                 }
             }
         }
