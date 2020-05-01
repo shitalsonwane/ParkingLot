@@ -1,7 +1,6 @@
 let ParkingLotSystem=require('../src/ParkingLotSystem')
 let assert=require('chai').assert
 let chai=require('chai')
-let sinon=require('sinon')
 let parkinglotowner=require('../src/ParkingLotOwner')
 let parkingAirportSecurity=require('../src/ParkingAirportSecurity')
 let expect=chai.expect
