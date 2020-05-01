@@ -13,6 +13,12 @@ describe('Test cases for ParkingLotSystem',function(){
         parkingLotSystem=new ParkingLotSystem()
         parkingLotOwner=new ParkingLotOwner()
         parkingAirportSecurity=new ParkingAirportSecurity()
+        isParkingLotFull=sinon.stub(parkingLotOwner,'isParkingLotFull')
+        sinon.stub(parkingLotOwner,'isParkingLotAvailable')
+    })
+    afterEach(()=>{
+        parkingLotOwner.isParkingLotFull.restore()
+        parkingLotOwner.isParkingLotAvailable.restore()
     })
     //TEST CASE FOR PARK THE VEHICLE
     it('should return true when vehicle is park',function(){
@@ -45,7 +51,6 @@ describe('Test cases for ParkingLotSystem',function(){
             let car1=new Object()
             let car2=new Object()
             let car3=new Object()
-            isParkingLotFull=sinon.stub(parkingLotOwner,'isParkingLotFull')
             assert.isTrue(parkingLotSystem.park(car))
             assert.isTrue(parkingLotSystem.park(car1))
             assert.isTrue(parkingLotSystem.park(car2))
@@ -62,7 +67,6 @@ describe('Test cases for ParkingLotSystem',function(){
             let car1=new Object()
             let car2=new Object()
             let car3=new Object()
-            isParkingLotFull=sinon.stub(parkingAirportSecurity,'isParkingLotFull')
             assert.isTrue(parkingLotSystem.park(car))
             assert.isTrue(parkingLotSystem.park(car1))
             assert.isTrue(parkingLotSystem.park(car2))
@@ -78,7 +82,6 @@ describe('Test cases for ParkingLotSystem',function(){
             let car=new Object()
             let car1=new Object()
             let car2=new Object()
-            sinon.stub(parkingLotOwner,'isParkingLotAvailable')
             assert.isTrue(parkingLotSystem.park(car))
             assert.isTrue(parkingLotSystem.park(car1))
             assert.isTrue(parkingLotSystem.park(car2))
@@ -93,7 +96,6 @@ describe('Test cases for ParkingLotSystem',function(){
             let car=new Object()
             let car1=new Object()
             let car2=new Object()
-            sinon.stub(parkingLotOwner,'isParkingLotAvailable')
             assert.isTrue(parkingLotSystem.park(car))
             assert.isTrue(parkingLotSystem.park(car1))
             assert.isTrue(parkingLotSystem.park(car2))
@@ -105,8 +107,6 @@ describe('Test cases for ParkingLotSystem',function(){
     //TEST CASE FOR FIND PARKED VEHICLE TO UNPARK
     it('should return true when vehicle is unpark with slot no',function(){
         try{
-            let parkingLotAvailable=sinon.stub(parkingLotOwner,'isParkingLotAvailable')
-            parkingLotAvailable.withArgs(3)
             let car=new Object()
             let car1=new Object()
             assert.isTrue(parkingLotSystem.park(car))
@@ -120,8 +120,6 @@ describe('Test cases for ParkingLotSystem',function(){
     //TEST CASE FOR FIND WHEN VEHICLE WAS PARKED 
     it('should return true when vehicle is park with time',function(){
         try{
-            let parkingLotAvailable=sinon.stub(parkingLotOwner,'isParkingLotAvailable')
-            parkingLotAvailable.withArgs(3)
             let car={vehicleNo:1234,TimeofPark:Date()}
             let car1={vehicleNo:8934,TimeofPark:Date()}
             assert.isTrue(parkingLotSystem.park(car))
