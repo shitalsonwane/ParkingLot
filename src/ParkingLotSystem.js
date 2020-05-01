@@ -2,7 +2,7 @@ let ParkingLotOwner=require('../src/ParkingLotOwner')
 let ParkingAirportSecurity=require('../src/ParkingAirportSecurity')
 let parkingLotOwner=new ParkingLotOwner()
 let parkingAirportSecurity=new ParkingAirportSecurity()
-const parkingLotMaxSize=10
+const parkingLotMaxSize=20
 class ParkingLotSystem{
     constructor(){
         this.parkingSlot=[[],[],[]]
@@ -29,7 +29,7 @@ class ParkingLotSystem{
                     console.log('VEHICLE NO '+vehicle.vehicleNo +': parking Slot No is '+(slot+1)+' in LotNo:'+(lot+1))
                     console.log('TIMEOFPARK: '+vehicle.TimeofPark)
                     delete this.parkingSlot[lot][slot]
-                    parkingLotOwner.isParkingLotAvailable((lot+1),(slot+1))
+                    parkingLotOwner.isParkingLotAvailable((lot+1),(slot+1),vehicle)
                     return true
                 }
             }
@@ -53,9 +53,21 @@ class ParkingLotSystem{
         for (let  lot=0; lot<=this.parkingSlot.length;lot++ ){
             for (let slot=0; slot<=this.parkingSlot[lot].length && this.parkingSlot[lot].length<=parkingLotMaxSize;slot++){
                 if(this.parkingSlot[lot][slot]==undefined){
-                    this.parkingSlot[lot][slot]=vehicle
+                    if(vehicle.Driver=='Normal' || vehicle.Driver==undefined){
+                        this.parkingSlot[lot][slot]=vehicle
+                    }
+                    else{
+                        if(vehicle.Driver =='Handicap'){
+                        lot=2
+                            for (slot=0; slot<parkingLotMaxSize && this.parkingSlot[lot].length<parkingLotMaxSize;slot++){
+                                if(this.parkingSlot[lot][slot]==undefined){
+                                    this.parkingSlot[lot][slot]=vehicle
+                                }
+                            }
+                        }
+                    }
                     if(this.parkingSlot[lot].length<parkingLotMaxSize){
-                        this.FindEmptySlot(lot,slot)
+                        this.FindEmptySlot(lot,slot,vehicle)
                     }
                     else{
                         parkingLotOwner.isParkingLotFull()
@@ -65,8 +77,8 @@ class ParkingLotSystem{
             }
         }
     }
-    FindEmptySlot(lot,slot){
-        parkingLotOwner.isParkingLotAvailable((lot+1),(slot+2))
+    FindEmptySlot(lot,slot,vehicle){
+        parkingLotOwner.isParkingLotAvailable((lot+1),(slot+2),vehicle)
     }
 }
 module.exports=ParkingLotSystem

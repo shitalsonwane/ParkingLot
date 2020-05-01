@@ -133,8 +133,8 @@ describe('Test cases for ParkingLotSystem',function(){
     //TEST CASE FOR HANDICAP DRIVER GETS NEAREST SPACE
     it('should return true when handicap driver gets nearest space',function(){
         try{
-            let car={vehicleNo:1234,TimeofPark:Date()}
-            let car1={vehicleNo:8934,TimeofPark:Date()}
+            let car={vehicleNo:1234,TimeofPark:Date(),Driver:'Normal'}
+            let car1={vehicleNo:8934,TimeofPark:Date(),Driver:'Normal'}
             assert.isTrue(parkingLotSystem.park(car))
             assert.isTrue(parkingLotSystem.park(car1))
             assert.isTrue(parkingLotSystem.unpark(car1))
