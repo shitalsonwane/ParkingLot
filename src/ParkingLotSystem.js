@@ -59,8 +59,13 @@ class ParkingLotSystem{
                     }
                     else{
                         if(vehicle.Driver =='Handicap'){
+<<<<<<< HEAD
                             lot=2
                             for (slot=0; slot<=parkingLotMaxSize && this.parkingSlot[lot].length<=parkingLotMaxSize;slot++){
+=======
+                        lot=2
+                            for (slot=0; slot<parkingLotMaxSize && this.parkingSlot[lot].length<parkingLotMaxSize;slot++){
+>>>>>>> Uc10-FindNearestSpaceForHandicap
                                 if(this.parkingSlot[lot][slot]==undefined){
                                     this.parkingSlot[lot][slot]=vehicle
                                     return true
