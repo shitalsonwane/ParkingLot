@@ -122,7 +122,7 @@ describe('Test cases for ParkingLotSystem simple',function(){
         }
     })
     //TEST CASE FOR HANDICAP DRIVER GETS NEAREST SPACE
-    it('should return true when Normal driver gets nearest space',function(){
+    it('should return true when Normal driver gets space',function(){
         try{
             let car={vehicleNo:1234,TimeofPark:Date(),Driver:'Normal'}
             let car1={vehicleNo:8934,TimeofPark:Date(),Driver:'Normal'}
