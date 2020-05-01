@@ -37,7 +37,7 @@ describe('Test cases for ParkingLotSystem',function(){
         try{
             let car=new Object()
             assert.isTrue(parkingLotSystem.park(car))
-            let unparkresult=parkingLotSystem.unpark(car)
+            let unparkresult=parkingLotSystem.unpark(null)
             expect(unparkresult).to.equal(true)
         }
         catch(error){
