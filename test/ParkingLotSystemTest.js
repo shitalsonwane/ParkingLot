@@ -179,7 +179,7 @@ describe('Test cases for ParkingLotSystem',function(){
             assert.isTrue(parkingLotSystem.unpark(car1))
         }
         catch(error){
-            assert.equal(error.message,'COULD NOT FIND THE NEAREST SPACE')
+            assert.equal(error.message,'COULD NOT FIND HIGHEST NO OF FREE SPACE IN ANY LOT')
         }
     })
 })

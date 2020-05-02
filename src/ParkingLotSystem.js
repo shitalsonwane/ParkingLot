@@ -98,6 +98,7 @@ class ParkingLotSystem{
                 return true
             }
         }
+        throw new Error('COULD NOT FIND HIGHEST NO OF FREE SPACE IN ANY LOT')  
     }
     highestNumberFreeSpace(){
         let FreeSpaceLot=0
