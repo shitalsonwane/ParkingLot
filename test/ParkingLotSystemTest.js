@@ -140,7 +140,7 @@ describe('Test cases for ParkingLotSystem',function(){
             assert.isTrue(parkingLotSystem.unpark(car1))
         }
         catch(error){
-            assert.equal(error.message,'UNKNOWN VEHICLE')
+            assert.equal(error.message,'COULD NOT FIND THE SPACE')
         }
     })
     //TEST CASE FOR HANDICAP DRIVER GETS NEAREST SPACE
@@ -153,7 +153,7 @@ describe('Test cases for ParkingLotSystem',function(){
             assert.isTrue(parkingLotSystem.unpark(car1))
         }
         catch(error){
-            assert.equal(error.message,'UNKNOWN VEHICLE')
+            assert.equal(error.message,'COULD NOT FIND THE NEAREST SPACE')
         }
     })
     //TEST CASE FOR NORMAL AND HANDICAP DRIVER PARK
@@ -166,7 +166,7 @@ describe('Test cases for ParkingLotSystem',function(){
             assert.isTrue(parkingLotSystem.unpark(car1))
         }
         catch(error){
-            assert.equal(error.message,'UNKNOWN VEHICLE')
+            assert.equal(error.message,'COULD NOT FIND THE NEAREST SPACE')
         }
     })
 })

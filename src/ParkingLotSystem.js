@@ -50,36 +50,41 @@ class ParkingLotSystem{
         }
     }
     ParkingLotAvailable(vehicle){
-        for (let  lot=0; lot<=this.parkingSlot.length;lot++ ){
-            for (let slot=0; slot<=this.parkingSlot[lot].length && this.parkingSlot[lot].length<=parkingLotMaxSize;slot++){
+        if(vehicle.Driver=='Normal' || vehicle.Driver==undefined){
+            this.checkForParkingSlot(vehicle)
+        }
+        else{
+            this.fineNearestSlotHandicap(vehicle)
+        }
+    }
+    checkForParkingSlot(vehicle){
+        for (let  lot=0; lot<=(this.parkingSlot.length);lot++ ){
+            for (let slot=0; slot<=parkingLotMaxSize;slot++){
                 if(this.parkingSlot[lot][slot]==undefined){
-                    if(vehicle.Driver=='Normal' || vehicle.Driver==undefined){
-                        this.parkingSlot[lot][slot]=vehicle
-                        return true
-                    }
-                    else{
-                        if(vehicle.Driver =='Handicap'){
-                            lot=2
-                            for (slot=0; slot<=parkingLotMaxSize && this.parkingSlot[lot].length<=parkingLotMaxSize;slot++){
-                                if(this.parkingSlot[lot][slot]==undefined){
-                                    this.parkingSlot[lot][slot]=vehicle
-                                    return true
-                                }
-                            }
-                        }
-                    }
-                    if(this.parkingSlot[lot].length<parkingLotMaxSize){
-                        this.FindEmptySlot(lot,slot,vehicle)
-                    }
-                    else{
-                        parkingLotOwner.isParkingLotFull()
-                    }
+                    this.parkingSlot[lot][slot]=vehicle
+                    this.FindEmptySlot(lot,slot,vehicle)
+                    return true
                 }
             }
         }
+        throw new Error('COULD NOT FIND THE SPACE')  
+    }
+    fineNearestSlotHandicap(vehicle){
+        for (let  lot=0; lot<=this.parkingSlot.length;lot++ ){
+            for (let slot=0; slot<=(parkingLotMaxSize/2);slot++){
+                if(this.parkingSlot[lot][slot]==undefined){
+                    this.parkingSlot[lot][slot]=vehicle
+                    this.FindEmptySlot(lot,slot,vehicle)
+                    return true
+                }
+            }
+        }
+        throw new Error('COULD NOT FIND THE NEAREST SPACE')  
     }
     FindEmptySlot(lot,slot,vehicle){
+        if(this.parkingSlot[lot].length<parkingLotMaxSize){
         parkingLotOwner.isParkingLotAvailable((lot+1),(slot+2),vehicle)
+        }
     }
 }
 module.exports=ParkingLotSystem
