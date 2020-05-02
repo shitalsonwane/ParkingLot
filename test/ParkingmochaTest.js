@@ -160,4 +160,17 @@ describe('Test cases for ParkingLotSystem simple',function(){
             assert.equal(error.message,'COULD NOT FIND THE NEAREST SPACE')
         }
     })
+    //TEST CASE FOR LARGE VEHICLE PARK IN HIGHEST NUMBER OF SPACE AVAILABLE LOTS
+    it('should return true when large vehicle park in highest no of free space lot',function(){
+        try{
+            let car={vehicleNo:1234,TimeofPark:Date(),Driver:'Normal',VehicleType:'Large'}
+            let car1={vehicleNo:8934,TimeofPark:Date(),Driver:'Normal',VehicleType:'Large'}
+            assert.isTrue(parkingLotSystem.park(car))
+            assert.isTrue(parkingLotSystem.park(car1))
+            assert.isTrue(parkingLotSystem.unpark(car1))
+        }
+        catch(error){
+            assert.equal(error.message,'COULD NOT FIND THE NEAREST SPACE')
+        }
+    })
 })

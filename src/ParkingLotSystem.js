@@ -50,11 +50,14 @@ class ParkingLotSystem{
         }
     }
     ParkingLotAvailable(vehicle){
-        if(vehicle.Driver=='Normal' || vehicle.Driver==undefined){
-            this.checkForParkingSlot(vehicle)
-        }
-        else{
+        if(vehicle.Driver=='Handicap'){
             this.fineNearestSlotHandicap(vehicle)
+        }
+        else if(vehicle.VehicleType=='Large'){
+            this.largeVehicleParking(vehicle)
+        }
+        else {
+            this.checkForParkingSlot(vehicle)
         }
     }
     checkForParkingSlot(vehicle){
@@ -85,6 +88,25 @@ class ParkingLotSystem{
         if(this.parkingSlot[lot].length<parkingLotMaxSize){
         parkingLotOwner.isParkingLotAvailable((lot+1),(slot+2),vehicle)
         }
+    }
+    largeVehicleParking(vehicle){
+        let lot=this.highestNumberFreeSpace()
+        for (let slot=0; slot<=parkingLotMaxSize;slot++){
+            if(this.parkingSlot[lot][slot]==undefined){
+                this.parkingSlot[lot][slot]=vehicle
+                this.FindEmptySlot(lot,slot,vehicle)
+                return true
+            }
+        }
+    }
+    highestNumberFreeSpace(){
+        let FreeSpaceLot=0
+        for (let lot=0; lot<this.parkingSlot.length;lot++ ){
+            if(((this.parkingSlot[lot].length)-parkingLotMaxSize) > FreeSpaceLot){
+                FreeSpaceLot=lot
+            }
+        }
+        return FreeSpaceLot
     }
 }
 module.exports=ParkingLotSystem
