@@ -104,5 +104,18 @@ class ParkingLotSystem{
         }
         return FreeSpaceLot
     }
+    findByColor(color){
+        for(let lot=0;lot<this.parkingSlot.length;lot++){
+            for (let slot=0; slot<=this.parkingSlot[lot].length;slot++){
+                if(this.parkingSlot[lot][slot]!=null){
+                    let checkVehicle=this.parkingSlot[lot][slot]
+                    if(checkVehicle.VehicleColor==color){
+                    return true
+                    }
+                }
+            }
+        }
+        throw new Error('COULD NOT FIND VEHICLE WITH GIVEN COLOR')  
+    }
 }
 module.exports=ParkingLotSystem

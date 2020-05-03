@@ -176,4 +176,19 @@ describe('Test cases for ParkingLotSystem',function(){
             assert.equal(error.message,'COULD NOT FIND HIGHEST NO OF FREE SPACE IN ANY LOT')
         }
     })
+    //FIND VEHICLE LOCATION WITH UNDEFIED VEHICLE COLORS RETURN EXCEPTION
+    it('should return exception when undefied vehicle find with color',function(){
+        try{
+            let car1={vehicleNo:1234,TimeofPark:Date(),Driver:'Normal'}
+            let car2={vehicleNo:8934,TimeofPark:Date(),Driver:'Normal'}
+            let car=[car1,car2]
+            car.map(vehicle => {
+                assert.isTrue(parkingLotSystem.park(vehicle))
+            })
+            assert.isTrue(parkingLotSystem.findByColor('White'))
+        }
+        catch(error){
+            assert.equal(error.message,'COULD NOT FIND VEHICLE WITH GIVEN COLOR')
+        }
+    })
 })
