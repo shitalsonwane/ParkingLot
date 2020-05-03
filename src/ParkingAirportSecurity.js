@@ -1,6 +1,6 @@
 class ParkingAirportSecurity {
     isParkingLotFull() {
-        return true
+        throw new Error('LOT IS FULL')
     }
 }
 module.exports = ParkingAirportSecurity

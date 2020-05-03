@@ -2,7 +2,7 @@ let ParkingLotOwner=require('../src/ParkingLotOwner')
 let ParkingAirportSecurity=require('../src/ParkingAirportSecurity')
 let parkingLotOwner=new ParkingLotOwner()
 let parkingAirportSecurity=new ParkingAirportSecurity()
-const parkingLotMaxSize=20
+const parkingLotMaxSize=3
 class ParkingLotSystem{
     constructor(){
         this.parkingSlot=[[],[],[]]
@@ -26,10 +26,8 @@ class ParkingLotSystem{
         for(let lot=0;lot<this.parkingSlot.length;lot++){
             for (let slot=0; slot<=this.parkingSlot[lot].length && this.parkingSlot[lot].length<=parkingLotMaxSize;slot++){
                 if(this.parkingSlot[lot][slot]==vehicle){
-                    console.log('VEHICLE NO '+vehicle.vehicleNo +': parking Slot No is '+(slot+1)+' in LotNo:'+(lot+1))
-                    console.log('TIMEOFPARK: '+vehicle.TimeofPark)
                     delete this.parkingSlot[lot][slot]
-                    parkingLotOwner.isParkingLotAvailable((lot+1),(slot+1),vehicle)
+                    parkingLotOwner.isParkingLotAvailable()
                     return true
                 }
             }
@@ -63,9 +61,8 @@ class ParkingLotSystem{
     checkForParkingSlot(vehicle){
         for (let  lot=0; lot<=(this.parkingSlot.length);lot++ ){
             for (let slot=0; slot<=parkingLotMaxSize;slot++){
-                if(this.parkingSlot[lot][slot]==undefined){
+                if(this.parkingSlot[lot][slot]==null){
                     this.parkingSlot[lot][slot]=vehicle
-                    this.FindEmptySlot(lot,slot,vehicle)
                     return true
                 }
             }
@@ -75,26 +72,24 @@ class ParkingLotSystem{
     fineNearestSlotHandicap(vehicle){
         for (let  lot=0; lot<=this.parkingSlot.length;lot++ ){
             for (let slot=0; slot<=(parkingLotMaxSize/2);slot++){
-                if(this.parkingSlot[lot][slot]==undefined){
+                if(this.parkingSlot[lot][slot]==null){
                     this.parkingSlot[lot][slot]=vehicle
-                    this.FindEmptySlot(lot,slot,vehicle)
                     return true
                 }
             }
         }
-        throw new Error('COULD NOT FIND THE NEAREST SPACE')  
+        throw new Error('COULD NOT FIND THE NEAREST SPACE') 
     }
-    FindEmptySlot(lot,slot,vehicle){
+    FindEmptySlot(lot){
         if(this.parkingSlot[lot].length<parkingLotMaxSize){
-        parkingLotOwner.isParkingLotAvailable((lot+1),(slot+2),vehicle)
+        parkingLotOwner.isParkingLotAvailable()
         }
     }
     largeVehicleParking(vehicle){
         let lot=this.highestNumberFreeSpace()
         for (let slot=0; slot<=parkingLotMaxSize;slot++){
-            if(this.parkingSlot[lot][slot]==undefined){
+            if(this.parkingSlot[lot][slot]==null){
                 this.parkingSlot[lot][slot]=vehicle
-                this.FindEmptySlot(lot,slot,vehicle)
                 return true
             }
         }

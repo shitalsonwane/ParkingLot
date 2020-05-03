@@ -1,9 +1,9 @@
 class ParkingLotOwner {
     isParkingLotFull() {
-        return true
+        throw new Error('LOT IS FULL')
     }
-    isParkingLotAvailable(lot,slot,vehicle){
-        console.log('notification to vehicle owner :- parking slot for '+ vehicle.Driver +' is available: '+slot +' in LotNo:'+lot)
+    isParkingLotAvailable(){
+        throw new Error('SLOTS ARE AVAILABLE IN LOTS')
     }
 }
 module.exports = ParkingLotOwner 
