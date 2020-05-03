@@ -105,11 +105,14 @@ class ParkingLotSystem{
         return FreeSpaceLot
     }
     findByColor(color){
+        let VehicleswithColors=[]
         for(let lot=0;lot<this.parkingSlot.length;lot++){
             for (let slot=0; slot<=this.parkingSlot[lot].length;slot++){
                 if(this.parkingSlot[lot][slot]!=null){
                     let checkVehicle=this.parkingSlot[lot][slot]
                     if(checkVehicle.VehicleColor==color){
+                        let information={LOT:(lot+1),SLOT:(slot+1)}
+                        VehicleswithColors.push(information)
                     return true
                     }
                 }
