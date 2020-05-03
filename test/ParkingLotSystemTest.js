@@ -176,6 +176,13 @@ describe('Test cases for ParkingLotSystem',function(){
             assert.equal(error.message,'COULD NOT FIND HIGHEST NO OF FREE SPACE IN ANY LOT')
         }
     })
+})
+describe('Test cases for Police Verification',function(){
+    beforeEach(() => {
+        parkingLotSystem=new ParkingLotSystem()
+        parkingLotOwner=new ParkingLotOwner()
+        parkingAirportSecurity=new ParkingAirportSecurity()
+    })
     //FIND VEHICLE LOCATION WITH UNDEFIED VEHICLE COLORS RETURN EXCEPTION
     it('should return exception when undefied vehicle find with color',function(){
         try{
@@ -216,6 +223,21 @@ describe('Test cases for ParkingLotSystem',function(){
                 assert.isTrue(parkingLotSystem.park(vehicle))
             })
             assert.isTrue(parkingLotSystem.findByCompanyNameandColor('Toyota','White'))
+        }
+        catch(error){
+            assert.equal(error.message,'COULD NOT FIND VEHICLE WITH GIVEN COMPANY AND COLOR')
+        }
+    })
+    //FIND VEHICLE LOCATION WITH VEHICLE COLOR AND COMPANY RETURN TRUE
+    it('should return true when vehicle find with color and company',function(){
+        try{
+            let car1={vehicleNo:1234,TimeofPark:Date(),VehicleColor:'Blue',VehicleCompany:'Toyota'}
+            let car2={vehicleNo:8934,TimeofPark:Date(),VehicleColor:'Blue',VehicleCompany:'Toyota'}
+            let car=[car1,car2]
+            car.map(vehicle => {
+                assert.isTrue(parkingLotSystem.park(vehicle))
+            })
+            assert.isTrue(parkingLotSystem.findByCompanyNameandColor('Toyota','Blue'))
         }
         catch(error){
             assert.equal(error.message,'COULD NOT FIND VEHICLE WITH GIVEN COMPANY AND COLOR')
