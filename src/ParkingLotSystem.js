@@ -120,5 +120,21 @@ class ParkingLotSystem{
         }
         throw new Error('COULD NOT FIND VEHICLE WITH GIVEN COLOR')  
     }
+    findByCompanyNameandColor(companyName,color){
+        let CompanynamewithcolorData=[]
+        for(let lot=0;lot<this.parkingSlot.length;lot++){
+            for (let slot=0; slot<=this.parkingSlot[lot].length;slot++){
+                if(this.parkingSlot[lot][slot]!=null){
+                    let checkVehicle=this.parkingSlot[lot][slot]
+                    if(checkVehicle.VehicleColor==color,checkVehicle.VehicleCompany==companyName){
+                        let information={LOT:(lot+1),SLOT:(slot+1),VEHICLENO:checkVehicle.VehicleNo}
+                        CompanynamewithcolorData.push(information)
+                    return true
+                    }
+                }
+            }
+        }
+        throw new Error('COULD NOT FIND VEHICLE WITH GIVEN COMPANY AND COLOR')  
+    }
 }
 module.exports=ParkingLotSystem

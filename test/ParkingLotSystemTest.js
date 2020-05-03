@@ -206,4 +206,19 @@ describe('Test cases for ParkingLotSystem',function(){
             assert.equal(error.message,'COULD NOT FIND VEHICLE WITH GIVEN COLOR')
         }
     })
+    //FIND VEHICLE LOCATION WITH VEHICLE UNDEFINED COLOR AND COMPANY RETURN EXCEPTION
+    it('should return exception when vehicle find with undefined color and company',function(){
+        try{
+            let car1={vehicleNo:1234,TimeofPark:Date(),Driver:'Normal'}
+            let car2={vehicleNo:8934,TimeofPark:Date(),Driver:'Normal'}
+            let car=[car1,car2]
+            car.map(vehicle => {
+                assert.isTrue(parkingLotSystem.park(vehicle))
+            })
+            assert.isTrue(parkingLotSystem.findByCompanyNameandColor('Toyota','White'))
+        }
+        catch(error){
+            assert.equal(error.message,'COULD NOT FIND VEHICLE WITH GIVEN COMPANY AND COLOR')
+        }
+    })
 })
