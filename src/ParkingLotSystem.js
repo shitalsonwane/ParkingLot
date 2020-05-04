@@ -113,10 +113,12 @@ class ParkingLotSystem{
                     if(checkVehicle.VehicleColor==color){
                         let information={LOT:(lot+1),SLOT:(slot+1)}
                         VehicleswithColors.push(information)
-                    return true
                     }
                 }
             }
+        }
+        if(VehicleswithColors.length>=1){
+            return true
         }
         throw new Error('COULD NOT FIND VEHICLE WITH GIVEN COLOR')  
     }
@@ -129,12 +131,32 @@ class ParkingLotSystem{
                     if(checkVehicle.VehicleColor==color && checkVehicle.VehicleCompany==companyName){
                         let information={LOT:(lot+1),SLOT:(slot+1),VEHICLENO:checkVehicle.VehicleNo}
                         CompanynamewithcolorData.push(information)
-                    return true
                     }
                 }
             }
         }
+        if(CompanynamewithcolorData.length>=1){
+            return true
+        }
         throw new Error('COULD NOT FIND VEHICLE WITH GIVEN COMPANY AND COLOR')  
+    }
+    findByCompany(Company){
+        let VehicleswithCompany=[]
+        for(let lot=0;lot<this.parkingSlot.length;lot++){
+            for (let slot=0; slot<=this.parkingSlot[lot].length;slot++){
+                if(this.parkingSlot[lot][slot]!=null){
+                    let checkVehicle=this.parkingSlot[lot][slot]
+                    if(checkVehicle.VehicleCompany==Company){
+                        let information={LOT:(lot+1),SLOT:(slot+1)}
+                        VehicleswithCompany.push(information)
+                    }
+                }
+            }
+        }
+        if(VehicleswithCompany.length>=1){
+            return true
+        }
+        throw new Error('COULD NOT FIND VEHICLE WITH GIVEN COMPANY')  
     }
 }
 module.exports=ParkingLotSystem

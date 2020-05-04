@@ -177,7 +177,7 @@ describe('Test cases for ParkingLotSystem',function(){
         }
     })
 })
-describe('Test cases for Police Verification',function(){
+describe('Test cases for Police Investigation',function(){
     beforeEach(() => {
         parkingLotSystem=new ParkingLotSystem()
         parkingLotOwner=new ParkingLotOwner()
@@ -241,6 +241,36 @@ describe('Test cases for Police Verification',function(){
         }
         catch(error){
             assert.equal(error.message,'COULD NOT FIND VEHICLE WITH GIVEN COMPANY AND COLOR')
+        }
+    })
+    //FIND VEHICLE LOCATION UNDEFIED VEHICLE COMPANY RETURN EXCEPTION
+    it('should return exception when vehicle find with undefind company',function(){
+        try{
+            let car1={vehicleNo:1234,TimeofPark:Date()}
+            let car2={vehicleNo:8934,TimeofPark:Date()}
+            let car=[car1,car2]
+            car.map(vehicle => {
+                assert.isTrue(parkingLotSystem.park(vehicle))
+            })
+            assert.isTrue(parkingLotSystem.findByCompany('BMW'))
+        }
+        catch(error){
+            assert.equal(error.message,'COULD NOT FIND VEHICLE WITH GIVEN COMPANY')
+        }
+    })
+      //FIND VEHICLE LOCATION WITH VEHICLE COLOR AND COMPANY RETURN TRUE
+      it('should return true when vehicle find with company',function(){
+        try{
+            let car1={vehicleNo:1234,TimeofPark:Date(),VehicleCompany:'BMW'}
+            let car2={vehicleNo:8934,TimeofPark:Date(),VehicleCompany:'BMW'}
+            let car=[car1,car2]
+            car.map(vehicle => {
+                assert.isTrue(parkingLotSystem.park(vehicle))
+            })
+            assert.isTrue(parkingLotSystem.findByCompany('BMW'))
+        }
+        catch(error){
+            assert.equal(error.message,'COULD NOT FIND VEHICLE WITH GIVEN COMPANY')
         }
     })
 })
