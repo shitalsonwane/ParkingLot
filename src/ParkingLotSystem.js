@@ -153,10 +153,18 @@ class ParkingLotSystem{
                 }
             }
         }
-        if(VehicleswithCompany.length>=1){
-            return true
-        }
-        throw new Error('COULD NOT FIND VEHICLE WITH GIVEN COMPANY')  
+        return new Promise(function(reslove,reject){
+            if(VehicleswithCompany.length>=1){
+                reslove(true)
+            }
+            else{
+                reject('COULD NOT FIND VEHICLE WITH GIVEN COMPANY')
+            }
+        })
+        //if(VehicleswithCompany.length>=1){
+          //  return true
+        //}
+        //throw new Error('COULD NOT FIND VEHICLE WITH GIVEN COMPANY')  
     }
 }
 module.exports=ParkingLotSystem
