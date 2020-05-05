@@ -117,10 +117,14 @@ class ParkingLotSystem{
                 }
             }
         }
-        if(VehicleswithColors.length>=1){
-            return true
-        }
-        throw new Error('COULD NOT FIND VEHICLE WITH GIVEN COLOR')  
+        return new Promise(function(reslove,reject){
+            if(VehicleswithColors.length>=1){
+                reslove(true)
+            }
+            else{
+                reject('COULD NOT FIND VEHICLE WITH GIVEN COLOR')
+            }
+        })
     }
     findByCompanyNameandColor(companyName,color){
         let CompanynamewithcolorData=[]
@@ -135,10 +139,14 @@ class ParkingLotSystem{
                 }
             }
         }
-        if(CompanynamewithcolorData.length>=1){
-            return true
-        }
-        throw new Error('COULD NOT FIND VEHICLE WITH GIVEN COMPANY AND COLOR')  
+        return new Promise(function(reslove,reject){
+            if(CompanynamewithcolorData.length>=1){
+                reslove(true)
+            }
+            else{
+                reject('COULD NOT FIND VEHICLE WITH GIVEN COMPANY AND COLOR')
+            }
+        })
     }
     findByCompany(Company){
         let VehicleswithCompany=[]
@@ -160,11 +168,7 @@ class ParkingLotSystem{
             else{
                 reject('COULD NOT FIND VEHICLE WITH GIVEN COMPANY')
             }
-        })
-        //if(VehicleswithCompany.length>=1){
-          //  return true
-        //}
-        //throw new Error('COULD NOT FIND VEHICLE WITH GIVEN COMPANY')  
+        })  
     }
 }
 module.exports=ParkingLotSystem
