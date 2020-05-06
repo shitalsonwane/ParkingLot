@@ -23,10 +23,10 @@ class ParkingLotSystem{
         if (vehicle==null || vehicle==undefined){
             throw new Error('UNKNOWN VEHICLE') 
         }
-        for(let lot=0;lot<this.parkingSlot.length;lot++){
-            for (let slot=0; slot<=this.parkingSlot[lot].length && this.parkingSlot[lot].length<=parkingLotMaxSize;slot++){
-                if(this.parkingSlot[lot][slot]==vehicle){
-                    delete this.parkingSlot[lot][slot]
+        for (let slot=0; slot<=parkingLotMaxSize;slot++){
+            for(let lot=0;lot<this.parkingSlot.length;lot++){
+                if(this.parkingSlot[slot][lot]==vehicle){
+                    delete this.parkingSlot[slot][lot]
                     parkingLotOwner.isParkingLotAvailable()
                     return true
                 }
@@ -59,10 +59,10 @@ class ParkingLotSystem{
         }
     }
     checkForParkingSlot(vehicle){
-        for (let  lot=0; lot<=(this.parkingSlot.length);lot++ ){
-            for (let slot=0; slot<=parkingLotMaxSize;slot++){
-                if(this.parkingSlot[lot][slot]==null){
-                    this.parkingSlot[lot][slot]=vehicle
+        for (let slot=0; slot<parkingLotMaxSize;slot++){
+            for (let lot=0; lot<=(this.parkingSlot.length);lot++ ){
+                if(this.parkingSlot[slot][lot]==null){
+                    this.parkingSlot[slot][lot]=vehicle
                     return true
                 }
             }
@@ -70,10 +70,10 @@ class ParkingLotSystem{
         throw new Error('COULD NOT FIND THE SPACE')  
     }
     fineNearestSlotHandicap(vehicle){
-        for (let  lot=0; lot<=this.parkingSlot.length;lot++ ){
-            for (let slot=0; slot<=(parkingLotMaxSize/2);slot++){
-                if(this.parkingSlot[lot][slot]==null){
-                    this.parkingSlot[lot][slot]=vehicle
+        for (let slot=0; slot<=(parkingLotMaxSize/2);slot++){
+            for (let lot=0; lot<=this.parkingSlot.length;lot++ ){
+                if(this.parkingSlot[slot][lot]==null){
+                    this.parkingSlot[slot][lot]=vehicle
                     return true
                 }
             }
@@ -86,10 +86,10 @@ class ParkingLotSystem{
         }
     }
     largeVehicleParking(vehicle){
-        let lot=this.highestNumberFreeSpace()
-        for (let slot=0; slot<=parkingLotMaxSize;slot++){
-            if(this.parkingSlot[lot][slot]==null){
-                this.parkingSlot[lot][slot]=vehicle
+        let slot=this.highestNumberFreeSpace()
+        for (let lot=0; lot<this.parkingSlot.length;lot++ ){
+            if(this.parkingSlot[slot][lot]==null){
+                this.parkingSlot[slot][lot]=vehicle
                 return true
             }
         }
@@ -106,10 +106,10 @@ class ParkingLotSystem{
     }
     findByColor(color){
         let VehicleswithColors=[]
-        for(let lot=0;lot<this.parkingSlot.length;lot++){
-            for (let slot=0; slot<=this.parkingSlot[lot].length;slot++){
-                if(this.parkingSlot[lot][slot]!=null){
-                    let checkVehicle=this.parkingSlot[lot][slot]
+        for (let slot=0; slot<parkingLotMaxSize;slot++){
+            for(let lot=0;lot<this.parkingSlot.length;lot++){
+                if(this.parkingSlot[slot][lot]!=null){
+                    let checkVehicle=this.parkingSlot[slot][lot]
                     if(checkVehicle.VehicleColor==color){
                         let information={LOT:(lot+1),SLOT:(slot+1)}
                         VehicleswithColors.push(information)
@@ -128,10 +128,10 @@ class ParkingLotSystem{
     }
     findByCompanyNameandColor(companyName,color){
         let CompanynamewithcolorData=[]
-        for(let lot=0;lot<this.parkingSlot.length;lot++){
-            for (let slot=0; slot<=this.parkingSlot[lot].length;slot++){
-                if(this.parkingSlot[lot][slot]!=null){
-                    let checkVehicle=this.parkingSlot[lot][slot]
+        for (let slot=0; slot<parkingLotMaxSize;slot++){
+            for(let lot=0;lot<this.parkingSlot.length;lot++){
+                if(this.parkingSlot[slot][lot]!=null){
+                    let checkVehicle=this.parkingSlot[slot][lot]
                     if(checkVehicle.VehicleColor==color && checkVehicle.VehicleCompany==companyName){
                         let information={LOT:(lot+1),SLOT:(slot+1),VEHICLENO:checkVehicle.VehicleNo}
                         CompanynamewithcolorData.push(information)
@@ -150,10 +150,10 @@ class ParkingLotSystem{
     }
     findByCompany(Company){
         let VehicleswithCompany=[]
-        for(let lot=0;lot<this.parkingSlot.length;lot++){
-            for (let slot=0; slot<=this.parkingSlot[lot].length;slot++){
-                if(this.parkingSlot[lot][slot]!=null){
-                    let checkVehicle=this.parkingSlot[lot][slot]
+        for (let slot=0; slot<parkingLotMaxSize;slot++){
+            for(let lot=0;lot<=this.parkingSlot.length;lot++){
+                if(this.parkingSlot[slot][lot]!=null){
+                    let checkVehicle=this.parkingSlot[slot][lot]
                     if(checkVehicle.VehicleCompany==Company){
                         let information={LOT:(lot+1),SLOT:(slot+1)}
                         VehicleswithCompany.push(information)
