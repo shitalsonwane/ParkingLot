@@ -170,5 +170,36 @@ class ParkingLotSystem{
             }
         })  
     }
+    findParkedCarsWithLastMin(currenttime,Time) {
+        let VehicleswithTime=[]
+        for (let slot=0; slot<parkingLotMaxSize;slot++){
+            for(let lot=0;lot<this.parkingSlot.length;lot++){
+                if(this.parkingSlot[slot][lot]!=null){
+                    let checkVehicle=this.parkingSlot[slot][lot]
+                    let ParkTime=checkVehicle.TimeofPark.Hours*60+checkVehicle.TimeofPark.Min
+                    let Checktime=currenttime.Hours*60+currenttime.Min
+                    var Difference=ParkTime-Checktime
+                    if(Difference <= Time){
+                        let information={LOT:(lot+1),SLOT:(slot+1)}
+                        VehicleswithTime.push(information)
+                    }
+                }
+            }
+        }
+        return new Promise(function(reslove,reject){
+            if(VehicleswithTime.length>=1){
+                reslove(true)
+            }
+            else{
+                reject('COULD NOT FIND VEHICLE IN GIVEN TIME')
+            }
+        }) 
+    }
+    currentTime(){
+        let hours=new Date().getHours()
+        let min=new Date().getMinutes()
+        let currenttime={Hours:hours,Min:min}
+        return currenttime
+    }
 }
 module.exports=ParkingLotSystem

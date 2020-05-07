@@ -267,4 +267,18 @@ describe('Test cases for Police Investigation',function(){
             assert.equal(err,'COULD NOT FIND VEHICLE WITH GIVEN COMPANY')
         })  
     })
+    //FIND VEHICLE LOCATION WITH VEHICLE WHICH PARKED IN LAST 30 MIN
+    it('should return true when vehicle find with Time',function(){
+        let car1={vehicleNo:1234,TimeofPark:parkingLotSystem.currentTime(),VehicleCompany:'BMW'}
+        let car2={vehicleNo:8934,TimeofPark:parkingLotSystem.currentTime(),VehicleCompany:'BMW'}
+        let car=[car1,car2]
+        car.map(vehicle => {
+            assert.isTrue(parkingLotSystem.park(vehicle))
+        })
+        parkingLotSystem.findParkedCarsWithLastMin(parkingLotSystem.currentTime(),30).then(function(result){
+            expect(result).to.equal(true)
+        }).catch(err=>{
+            assert.equal(err,'COULD NOT FIND VEHICLE IN GIVEN TIME')
+        })  
+    })
 })
