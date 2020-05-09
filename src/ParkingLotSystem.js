@@ -28,7 +28,6 @@ class ParkingLotSystem{
                 if(this.parkingSlot[slot][lot]==vehicle){
                     delete this.parkingSlot[slot][lot]
                     parkingLotOwner.isParkingLotAvailable()
-                    return true
                 }
             }
         }
@@ -67,7 +66,6 @@ class ParkingLotSystem{
                 }
             }
         }
-        throw new Error('COULD NOT FIND THE SPACE')  
     }
     fineNearestSlotHandicap(vehicle){
         for (let slot=0; slot<=(parkingLotMaxSize/2);slot++){
@@ -79,11 +77,6 @@ class ParkingLotSystem{
             }
         }
         throw new Error('COULD NOT FIND THE NEAREST SPACE') 
-    }
-    FindEmptySlot(lot){
-        if(this.parkingSlot[lot].length<parkingLotMaxSize){
-        parkingLotOwner.isParkingLotAvailable()
-        }
     }
     largeVehicleParking(vehicle){
         let slot=this.highestNumberFreeSpace()
@@ -98,77 +91,35 @@ class ParkingLotSystem{
     highestNumberFreeSpace(){
         let FreeSpaceLot=0
         for (let lot=0; lot<this.parkingSlot.length;lot++ ){
-            if(((this.parkingSlot[lot].length)-parkingLotMaxSize) > FreeSpaceLot){
+            if(((this.parkingSlot[lot].length)-parkingLotMaxSize) < FreeSpaceLot){
                 FreeSpaceLot=lot
             }
         }
         return FreeSpaceLot
     }
-    findByColor(color){
-        let VehicleswithColors=[]
+    SearchVehicle(search){
+        let SearchVehicles = []
+        let keys = Object.keys(search)
+        let values = Object.values(search)
         for (let slot=0; slot<parkingLotMaxSize;slot++){
             for(let lot=0;lot<this.parkingSlot.length;lot++){
                 if(this.parkingSlot[slot][lot]!=null){
-                    let checkVehicle=this.parkingSlot[slot][lot]
-                    if(checkVehicle.VehicleColor==color){
+                    if(this.parkingSlot[slot][lot][keys[slot]] == values[slot] &&
+                        this.parkingSlot[slot][lot][keys[slot + 1]] == values[slot + 1]){
                         let information={LOT:(lot+1),SLOT:(slot+1)}
-                        VehicleswithColors.push(information)
+                        SearchVehicles.push(information)
                     }
                 }
             }
         }
         return new Promise(function(reslove,reject){
-            if(VehicleswithColors.length>=1){
+            if(SearchVehicles.length>=1){
                 reslove(true)
             }
             else{
-                reject('COULD NOT FIND VEHICLE WITH GIVEN COLOR')
+                reject('COULD NOT FIND VEHICLE WITH GIVEN SEARCH OBJECT')
             }
         })
-    }
-    findByCompanyNameandColor(companyName,color){
-        let CompanynamewithcolorData=[]
-        for (let slot=0; slot<parkingLotMaxSize;slot++){
-            for(let lot=0;lot<this.parkingSlot.length;lot++){
-                if(this.parkingSlot[slot][lot]!=null){
-                    let checkVehicle=this.parkingSlot[slot][lot]
-                    if(checkVehicle.VehicleColor==color && checkVehicle.VehicleCompany==companyName){
-                        let information={LOT:(lot+1),SLOT:(slot+1),VEHICLENO:checkVehicle.VehicleNo}
-                        CompanynamewithcolorData.push(information)
-                    }
-                }
-            }
-        }
-        return new Promise(function(reslove,reject){
-            if(CompanynamewithcolorData.length>=1){
-                reslove(true)
-            }
-            else{
-                reject('COULD NOT FIND VEHICLE WITH GIVEN COMPANY AND COLOR')
-            }
-        })
-    }
-    findByCompany(Company){
-        let VehicleswithCompany=[]
-        for (let slot=0; slot<parkingLotMaxSize;slot++){
-            for(let lot=0;lot<=this.parkingSlot.length;lot++){
-                if(this.parkingSlot[slot][lot]!=null){
-                    let checkVehicle=this.parkingSlot[slot][lot]
-                    if(checkVehicle.VehicleCompany==Company){
-                        let information={LOT:(lot+1),SLOT:(slot+1)}
-                        VehicleswithCompany.push(information)
-                    }
-                }
-            }
-        }
-        return new Promise(function(reslove,reject){
-            if(VehicleswithCompany.length>=1){
-                reslove(true)
-            }
-            else{
-                reject('COULD NOT FIND VEHICLE WITH GIVEN COMPANY')
-            }
-        })  
     }
     findParkedCarsWithLastMin(currenttime,Time) {
         let VehicleswithTime=[]

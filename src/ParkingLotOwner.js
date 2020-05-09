@@ -1,6 +1,6 @@
 class ParkingLotOwner {
     isParkingLotFull() {
-        throw new Error('LOT IS FULL')
+        return true
     }
     isParkingLotAvailable(){
         throw new Error('SLOTS ARE AVAILABLE IN LOTS')

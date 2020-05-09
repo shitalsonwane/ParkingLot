@@ -191,10 +191,11 @@ describe('Test cases for Police Investigation',function(){
         car.map(vehicle => {
             assert.isTrue(parkingLotSystem.park(vehicle))
         })
-        parkingLotSystem.findByColor('White').then(function(result){
+        search = {VehicleColor: "White"}
+        parkingLotSystem.SearchVehicle(search).then(function(result){
             expect(result).to.equal(true)
         }).catch(error=>{
-            assert.equal(error,'COULD NOT FIND VEHICLE WITH GIVEN COLOR')
+            assert.equal(error,'COULD NOT FIND VEHICLE WITH GIVEN SEARCH OBJECT')
         })
     })
     //FIND VEHICLE LOCATION WITH VEHICLE COLORS RETURN TRUE 
@@ -205,10 +206,11 @@ describe('Test cases for Police Investigation',function(){
         car.map(vehicle => {
             assert.isTrue(parkingLotSystem.park(vehicle))
         })
-        parkingLotSystem.findByColor('White').then(function(result){
+        search = {VehicleColor: "White"}
+        parkingLotSystem.SearchVehicle(search).then(function(result){
             expect(result).to.equal(true)
         }).catch(error=>{
-            assert.equal(error,'COULD NOT FIND VEHICLE WITH GIVEN COLOR')
+            assert.equal(error,'COULD NOT FIND VEHICLE WITH GIVEN SEARCH OBJECT')
         })
     })
     //FIND VEHICLE LOCATION WITH VEHICLE UNDEFINED COLOR AND COMPANY RETURN EXCEPTION
@@ -219,10 +221,11 @@ describe('Test cases for Police Investigation',function(){
         car.map(vehicle => {
             assert.isTrue(parkingLotSystem.park(vehicle))
         })
-        parkingLotSystem.findByCompanyNameandColor('Toyota','Blue').then(function(result){
+        search = {VehicleColor: "Blue",VehicleCompany:'Toyota'}
+        parkingLotSystem.SearchVehicle(search).then(function(result){
             expect(result).to.equal(true)
         }).catch(err=>{
-            assert.equal(err,'COULD NOT FIND VEHICLE WITH GIVEN COMPANY AND COLOR')
+            assert.equal(err,'COULD NOT FIND VEHICLE WITH GIVEN SEARCH OBJECT')
         })
     })
     //FIND VEHICLE LOCATION WITH VEHICLE COLOR AND COMPANY RETURN TRUE
@@ -233,10 +236,11 @@ describe('Test cases for Police Investigation',function(){
         car.map(vehicle => {
             assert.isTrue(parkingLotSystem.park(vehicle))
         })
-        parkingLotSystem.findByCompanyNameandColor('Toyota','Blue').then(function(result){
+        search = {VehicleColor: "Blue",VehicleCompany:'Toyota'}
+        parkingLotSystem.SearchVehicle(search).then(function(result){
             expect(result).to.equal(true)
         }).catch(err=>{
-            assert.equal(err,'COULD NOT FIND VEHICLE WITH GIVEN COMPANY AND COLOR')
+            assert.equal(err,'COULD NOT FIND VEHICLE WITH GIVEN SEARCH OBJECT')
         })
     })
     //FIND VEHICLE LOCATION UNDEFIED VEHICLE COMPANY RETURN EXCEPTION
@@ -247,10 +251,11 @@ describe('Test cases for Police Investigation',function(){
         car.map(vehicle => {
             assert.isTrue(parkingLotSystem.park(vehicle))
         })
-        parkingLotSystem.findByCompany('BMW').then(function(result){
+        search = {VehicleCompany: "BMW"}
+        parkingLotSystem.SearchVehicle(search).then(function(result){
             expect(result).to.equal(true)
         }).catch(err=>{
-            assert.equal(err,'COULD NOT FIND VEHICLE WITH GIVEN COMPANY')
+            assert.equal(err,'COULD NOT FIND VEHICLE WITH GIVEN SEARCH OBJECT')
         })       
     })
     //FIND VEHICLE LOCATION WITH VEHICLE COLOR AND COMPANY RETURN TRUE
@@ -261,10 +266,11 @@ describe('Test cases for Police Investigation',function(){
         car.map(vehicle => {
             assert.isTrue(parkingLotSystem.park(vehicle))
         })
-        parkingLotSystem.findByCompany('BMW').then(function(result){
+        search = {VehicleCompany: "BMW"}
+        parkingLotSystem.SearchVehicle(search).then(function(result){
             expect(result).to.equal(true)
         }).catch(err=>{
-            assert.equal(err,'COULD NOT FIND VEHICLE WITH GIVEN COMPANY')
+            assert.equal(err,'COULD NOT FIND VEHICLE WITH GIVEN SEARCH OBJECT')
         })  
     })
     //FIND VEHICLE LOCATION WITH VEHICLE WHICH PARKED IN LAST 30 MIN
@@ -276,6 +282,20 @@ describe('Test cases for Police Investigation',function(){
             assert.isTrue(parkingLotSystem.park(vehicle))
         })
         parkingLotSystem.findParkedCarsWithLastMin(parkingLotSystem.currentTime(),30).then(function(result){
+            expect(result).to.equal(true)
+        }).catch(err=>{
+            assert.equal(err,'COULD NOT FIND VEHICLE IN GIVEN TIME')
+        })  
+    })
+    //FIND VEHICLE LOCATION WITH VEHICLE WHICH PARKED IN LAST 30 MIN
+    it('should return Exception when vehicle not find with Time',function(){
+        let car1={vehicleNo:1234,TimeofPark:parkingLotSystem.currentTime(),VehicleCompany:'BMW'}
+        let car2={vehicleNo:8934,TimeofPark:parkingLotSystem.currentTime(),VehicleCompany:'BMW'}
+        let car=[car1,car2]
+        car.map(vehicle => {
+            assert.isTrue(parkingLotSystem.park(vehicle))
+        })
+        parkingLotSystem.findParkedCarsWithLastMin(parkingLotSystem.currentTime()).then(function(result){
             expect(result).to.equal(true)
         }).catch(err=>{
             assert.equal(err,'COULD NOT FIND VEHICLE IN GIVEN TIME')
