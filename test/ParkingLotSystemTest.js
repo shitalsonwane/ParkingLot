@@ -317,7 +317,7 @@ describe('Test cases for Police Investigation',function(){
         })  
     })
     //FIND VEHICLES WHICH ARE SMALL AND HANDICAP DRIVER
-    it('should return True when vehicle not find with handicap and small',function(){
+    it('should return True when vehicle find with handicap and small',function(){
         let car1={vehicleNo:1234,TimeofPark:parkingLotSystem.currentTime(),VehicleCompany:'BMW',Driver:'Normal',VehicleType:'Small'}
         let car2={vehicleNo:8934,TimeofPark:parkingLotSystem.currentTime(),VehicleCompany:'BMW',Driver:'Normal',VehicleType:'Small'}
         let car=[car1,car2]
@@ -328,7 +328,21 @@ describe('Test cases for Police Investigation',function(){
         parkingLotSystem.SearchVehicle(search).then(function(result){
             expect(result).to.equal(true)
         }).catch(err=>{
-            console.log('---------------------')
+            assert.equal(err,'COULD NOT FIND VEHICLE WITH GIVEN SEARCH OBJECT')
+        })  
+    })
+    //FIND VEHICLES WHICH ARE fROUD PLATE NUMBER
+    it('should return True when parked vehicle are found',function(){
+        let car1={vehicleNo:1234,TimeofPark:parkingLotSystem.currentTime(),VehicleCompany:'BMW',Driver:'Normal',VehicleType:'Small'}
+        let car2={vehicleNo:8934,TimeofPark:parkingLotSystem.currentTime(),VehicleCompany:'BMW',Driver:'Normal',VehicleType:'Small'}
+        let car=[car1,car2]
+        car.map(vehicle => {
+            assert.isTrue(parkingLotSystem.park(vehicle))
+        })
+        search = {}
+        parkingLotSystem.SearchVehicle(search).then(function(result){
+            expect(result).to.equal(true)
+        }).catch(err=>{
             assert.equal(err,'COULD NOT FIND VEHICLE WITH GIVEN SEARCH OBJECT')
         })  
     })
