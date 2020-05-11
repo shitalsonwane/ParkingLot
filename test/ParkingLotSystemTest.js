@@ -301,4 +301,35 @@ describe('Test cases for Police Investigation',function(){
             assert.equal(err,'COULD NOT FIND VEHICLE IN GIVEN TIME')
         })  
     })
+    //FIND VEHICLES WHICH ARE SMALL AND HANDICAP DRIVER
+    it('should return Exception when vehicle not find with handicap and small',function(){
+        let car1={vehicleNo:1234,TimeofPark:parkingLotSystem.currentTime(),VehicleCompany:'BMW'}
+        let car2={vehicleNo:8934,TimeofPark:parkingLotSystem.currentTime(),VehicleCompany:'BMW'}
+        let car=[car1,car2]
+        car.map(vehicle => {
+            assert.isTrue(parkingLotSystem.park(vehicle))
+        })
+        search = {Driver:'Normal',VehicleType:'Small'}
+        parkingLotSystem.SearchVehicle(search).then(function(result){
+            expect(result).to.equal(true)
+        }).catch(err=>{
+            assert.equal(err,'COULD NOT FIND VEHICLE WITH GIVEN SEARCH OBJECT')
+        })  
+    })
+    //FIND VEHICLES WHICH ARE SMALL AND HANDICAP DRIVER
+    it('should return True when vehicle not find with handicap and small',function(){
+        let car1={vehicleNo:1234,TimeofPark:parkingLotSystem.currentTime(),VehicleCompany:'BMW',Driver:'Normal',VehicleType:'Small'}
+        let car2={vehicleNo:8934,TimeofPark:parkingLotSystem.currentTime(),VehicleCompany:'BMW',Driver:'Normal',VehicleType:'Small'}
+        let car=[car1,car2]
+        car.map(vehicle => {
+            assert.isTrue(parkingLotSystem.park(vehicle))
+        })
+        search = {Driver:'Normal',VehicleType:'Small'}
+        parkingLotSystem.SearchVehicle(search).then(function(result){
+            expect(result).to.equal(true)
+        }).catch(err=>{
+            console.log('---------------------')
+            assert.equal(err,'COULD NOT FIND VEHICLE WITH GIVEN SEARCH OBJECT')
+        })  
+    })
 })
